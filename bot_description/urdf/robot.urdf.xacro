@@ -1,0 +1,270 @@
+<?xml version="1.0"?>
+
+<robot name="bot_6dof"
+       xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- ====================================================== -->
+  <!-- MATERIALS -->
+  <!-- ====================================================== -->
+
+  <material name="black">
+    <color rgba="0.1 0.1 0.1 1.0"/>
+  </material>
+
+  <material name="silver">
+    <color rgba="0.75 0.75 0.75 1.0"/>
+  </material>
+
+  <!-- ====================================================== -->
+  <!-- BASE LINK -->
+  <!-- ====================================================== -->
+
+  <link name="base_link">
+
+    <visual>
+
+      <origin xyz="0 0 0"
+              rpy="0 0 0"/>
+
+      <geometry>
+        <mesh filename="package://bot_description/meshes/base_link.stl"
+              scale="0.001 0.001 0.001"/>
+      </geometry>
+
+      <material name="silver"/>
+
+    </visual>
+
+  </link>
+
+  <!-- ====================================================== -->
+  <!-- SHOULDER LINK -->
+  <!-- ====================================================== -->
+
+  <link name="shoulder_link">
+
+    <visual>
+
+      <!-- reset mesh offset -->
+      <origin xyz="0 0 0"
+              rpy="0 0 0"/>
+
+      <geometry>
+        <mesh filename="package://bot_description/meshes/shoulder_link.stl"
+              scale="0.001 0.001 0.001"/>
+      </geometry>
+
+      <material name="black"/>
+
+    </visual>
+
+  </link>
+
+  <!-- ====================================================== -->
+  <!-- UPPER ARM -->
+  <!-- ====================================================== -->
+
+  <link name="upper_arm_link">
+
+    <visual>
+
+      <!-- reset mesh offset -->
+      <origin xyz="0 0 0"
+              rpy="0 0 0"/>
+
+      <geometry>
+        <mesh filename="package://bot_description/meshes/upper_arm_link.stl"
+              scale="0.001 0.001 0.001"/>
+      </geometry>
+
+      <material name="black"/>
+
+    </visual>
+
+  </link>
+
+  <!-- ====================================================== -->
+  <!-- FOREARM -->
+  <!-- ====================================================== -->
+
+  <link name="forearm_link">
+
+    <visual>
+
+      <!-- reset mesh offset -->
+      <origin xyz="0 0 0"
+              rpy="0 0 0"/>
+
+      <geometry>
+        <mesh filename="package://bot_description/meshes/forearm_link.stl"
+              scale="0.001 0.001 0.001"/>
+      </geometry>
+
+      <material name="black"/>
+
+    </visual>
+
+  </link>
+
+  <!-- ====================================================== -->
+  <!-- WRIST -->
+  <!-- ====================================================== -->
+
+  <link name="wrist_link">
+
+    <visual>
+
+      <!-- reset mesh offset -->
+      <origin xyz="0 0 0"
+              rpy="0 0 0"/>
+
+      <geometry>
+        <mesh filename="package://bot_description/meshes/wrist_link.stl"
+              scale="0.001 0.001 0.001"/>
+      </geometry>
+
+      <material name="black"/>
+
+    </visual>
+
+  </link>
+
+  <!-- ====================================================== -->
+  <!-- GRIPPER -->
+  <!-- ====================================================== -->
+
+  <link name="gripper_link">
+
+    <visual>
+
+      <!-- reset mesh offset -->
+      <origin xyz="0 0 0"
+              rpy="0 0 0"/>
+
+      <geometry>
+        <mesh filename="package://bot_description/meshes/gripper_assembly.stl"
+              scale="0.001 0.001 0.001"/>
+      </geometry>
+
+      <material name="silver"/>
+
+    </visual>
+
+  </link>
+
+  <!-- ====================================================== -->
+  <!-- JOINT 1 -->
+  <!-- ====================================================== -->
+
+  <joint name="joint_1"
+         type="revolute">
+
+    <parent link="base_link"/>
+    <child link="shoulder_link"/>
+
+    <!-- base height -->
+    <origin xyz="0 0 0.050"
+            rpy="0 0 0"/>
+
+    <axis xyz="0 0 1"/>
+
+    <limit lower="-3.14"
+           upper="3.14"
+           effort="20"
+           velocity="1"/>
+
+  </joint>
+
+  <!-- ====================================================== -->
+  <!-- JOINT 2 -->
+  <!-- ====================================================== -->
+
+  <joint name="joint_2"
+         type="revolute">
+
+    <parent link="shoulder_link"/>
+    <child link="upper_arm_link"/>
+
+    <!-- shoulder elevation -->
+    <origin xyz="0 0 0.100"
+            rpy="0 0 0"/>
+
+    <axis xyz="0 1 0"/>
+
+    <limit lower="-1.57"
+           upper="1.57"
+           effort="20"
+           velocity="1"/>
+
+  </joint>
+
+  <!-- ====================================================== -->
+  <!-- JOINT 3 -->
+  <!-- ====================================================== -->
+
+  <joint name="joint_3"
+         type="revolute">
+
+    <parent link="upper_arm_link"/>
+    <child link="forearm_link"/>
+
+    <!-- upper arm length -->
+    <origin xyz="0.140 0 0"
+            rpy="0 0 0"/>
+
+    <axis xyz="0 1 0"/>
+
+    <limit lower="-1.57"
+           upper="1.57"
+           effort="20"
+           velocity="1"/>
+
+  </joint>
+
+  <!-- ====================================================== -->
+  <!-- JOINT 4 -->
+  <!-- ====================================================== -->
+
+  <joint name="joint_4"
+         type="revolute">
+
+    <parent link="forearm_link"/>
+    <child link="wrist_link"/>
+
+    <!-- forearm length -->
+    <origin xyz="0.130 0 0"
+            rpy="0 0 0"/>
+
+    <axis xyz="0 1 0"/>
+
+    <limit lower="-1.57"
+           upper="1.57"
+           effort="20"
+           velocity="1"/>
+
+  </joint>
+
+  <!-- ====================================================== -->
+  <!-- JOINT 5 -->
+  <!-- ====================================================== -->
+
+  <joint name="joint_5"
+         type="revolute">
+
+    <parent link="wrist_link"/>
+    <child link="gripper_link"/>
+
+    <!-- wrist offset -->
+    <origin xyz="0.060 0 0"
+            rpy="0 0 0"/>
+
+    <axis xyz="1 0 0"/>
+
+    <limit lower="-1.57"
+           upper="1.57"
+           effort="20"
+           velocity="1"/>
+
+  </joint>
+
+</robot>
